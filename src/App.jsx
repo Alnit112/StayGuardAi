@@ -1,290 +1,532 @@
-import { useState } from "react"
+import React from "react";
 
-function App() {
-  const CALENDLY_URL = "https://calendly.com/ratkocerialnit/30min"
+const CALENDLY_URL = "https://calendly.com/ratkocerialnit/30min"; // replace if needed
+const LOOM_URL = ""; // paste your Loom share link tomorrow (optional)
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    properties: "",
-  })
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    try {
-      await fetch("https://hook.eu1.make.com/yi2j7p2m2j9th6qszcxy4rthd88ris8b", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
-
-      setIsOpen(false)
-      alert("Application submitted successfully.")
-      setFormData({ name: "", email: "", properties: "" })
-    } catch (error) {
-      console.error("Submission failed:", error)
-      alert("Something went wrong.")
-    }
-  }
-
-  return (
-    <div className="bg-slate-950 text-white min-h-screen relative">
-      {/* Navbar */}
-      <nav className="flex justify-between items-center px-8 py-6 border-b border-slate-800">
-        <h1 className="text-xl font-semibold tracking-wide">ReviewRisk AI</h1>
-
-        <div className="flex items-center gap-3">
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="border border-slate-700 px-4 py-2 rounded-lg font-medium hover:bg-slate-900"
-          >
-            Book Demo
-          </a>
-          <button
-            onClick={() => setIsOpen(true)}
-            className="bg-white text-black px-4 py-2 rounded-lg font-medium hover:opacity-90"
-          >
-            Apply for Access
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="px-8 py-28 max-w-5xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/40 px-4 py-2 text-xs text-slate-300">
-          Private beta • Built for multi-property hosts
-        </div>
-
-        <h2 className="mt-6 text-5xl font-bold leading-tight">
-          Protect Your Airbnb Rating Before Guests Complain Publicly.
-        </h2>
-
-        <p className="mt-6 text-lg text-slate-400">
-          ReviewRisk AI detects friction in guest messages, automates low-risk replies, and escalates
-          high-risk threads — built for hosts managing multiple properties.
-        </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-white text-black px-6 py-3 rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90"
-          >
-            Book a private demo
-          </a>
-
-          <a
-            href="#learn-more"
-            className="border border-slate-700 px-6 py-3 rounded-lg inline-flex items-center justify-center hover:bg-slate-900"
-          >
-            Learn more
-          </a>
-        </div>
-
-        <div className="mt-6 text-sm text-slate-500">
-          Insurance-layer workflow: detect → respond → escalate → log.
-        </div>
-      </section>
-
-      {/* Problem Section */}
-      <section id="learn-more" className="bg-slate-900 py-24 px-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-3xl font-semibold">
-            Bad Reviews Don’t Start With One Star —<span className="text-red-500"> They Start With Friction</span>
-          </h3>
-
-          <div className="mt-16 grid md:grid-cols-3 gap-10 text-left">
-            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
-              <h4 className="text-xl font-semibold mb-4">Subtle Frustration</h4>
-              <p className="text-slate-400">
-                Guests often express dissatisfaction politely at first. Early signals are easy to miss in a busy inbox.
-              </p>
-            </div>
-
-            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
-              <h4 className="text-xl font-semibold mb-4">Repeated Complaints</h4>
-              <p className="text-slate-400">
-                Small issues repeated across a booking increase review risk, even when each message seems minor.
-              </p>
-            </div>
-
-            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700">
-              <h4 className="text-xl font-semibold mb-4">Late Escalation</h4>
-              <p className="text-slate-400">
-                By the time refund threats or emotional language appear, the review damage is often already forming.
-              </p>
-            </div>
-          </div>
-
-          <p className="mt-16 text-slate-400 max-w-3xl mx-auto">
-            Most hosts don’t lose ratings because they don’t care. They lose them because they detect risk too late.
-          </p>
-        </div>
-      </section>
-
-      {/* Dashboard Section */}
-      <section className="py-28 px-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-3xl font-semibold">Live Booking Risk Dashboard</h3>
-
-          <p className="mt-6 text-slate-400 max-w-2xl mx-auto">
-            Monitor emotional risk, incident accumulation, and escalation across all active bookings in real time.
-          </p>
-
-          <div className="mt-16 bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-800 text-left text-slate-400 text-sm">Active Bookings</div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-slate-800 text-slate-400 text-sm">
-                  <tr>
-                    <th className="px-6 py-4">Property</th>
-                    <th className="px-6 py-4">Guest</th>
-                    <th className="px-6 py-4">Risk Status</th>
-                    <th className="px-6 py-4">Incidents</th>
-                    <th className="px-6 py-4">Last Message</th>
-                  </tr>
-                </thead>
-
-                <tbody className="text-sm">
-                  <tr className="border-t border-slate-800">
-                    <td className="px-6 py-4">Flat 12A</td>
-                    <td className="px-6 py-4">John D</td>
-                    <td className="px-6 py-4 text-yellow-400 font-medium">At Risk</td>
-                    <td className="px-6 py-4">1</td>
-                    <td className="px-6 py-4 text-slate-400">Heating issue reported</td>
-                  </tr>
-
-                  <tr className="border-t border-slate-800">
-                    <td className="px-6 py-4">Studio B</td>
-                    <td className="px-6 py-4">Anna M</td>
-                    <td className="px-6 py-4 text-red-500 font-medium">Escalated</td>
-                    <td className="px-6 py-4">3</td>
-                    <td className="px-6 py-4 text-slate-400">Refund mentioned</td>
-                  </tr>
-
-                  <tr className="border-t border-slate-800">
-                    <td className="px-6 py-4">Loft 5</td>
-                    <td className="px-6 py-4">Mark T</td>
-                    <td className="px-6 py-4 text-green-400 font-medium">Normal</td>
-                    <td className="px-6 py-4">0</td>
-                    <td className="px-6 py-4 text-slate-400">Check-in confirmed</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="bg-white text-black px-6 py-3 rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90"
-            >
-              Book a private demo
-            </a>
-
-            <button
-              onClick={() => setIsOpen(true)}
-              className="border border-slate-700 px-6 py-3 rounded-lg font-semibold hover:bg-slate-900"
-            >
-              Apply for access
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Modal */}
-      {isOpen && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center px-4 z-50">
-          <div className="bg-slate-900 w-full max-w-md rounded-2xl p-8 border border-slate-800 shadow-2xl relative">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
-              aria-label="Close"
-            >
-              ✕
-            </button>
-
-            <h3 className="text-2xl font-semibold mb-6 text-center">Apply for Access</h3>
-
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Full Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  required
-                  onChange={handleChange}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white text-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  required
-                  onChange={handleChange}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white text-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Number of Properties</label>
-                <select
-                  name="properties"
-                  value={formData.properties}
-                  required
-                  onChange={handleChange}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white text-white"
-                >
-                  <option value="">Select</option>
-                  <option value="2-5">2–5</option>
-                  <option value="5-15">5–15</option>
-                  <option value="15+">15+</option>
-                </select>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:opacity-90"
-              >
-                Submit application
-              </button>
-
-              <div className="text-xs text-slate-500 text-center">
-                Prefer to move faster?{" "}
-                <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="underline hover:text-white">
-                  Book a demo
-                </a>
-                .
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
-  )
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
 }
 
-export default App
+function Container({ children, className }) {
+  return (
+    <div className={cn("mx-auto w-full max-w-6xl px-4 sm:px-6", className)}>
+      {children}
+    </div>
+  );
+}
 
+function Badge({ children }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/60 px-3 py-1 text-xs font-medium text-slate-200">
+      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+      {children}
+    </span>
+  );
+}
+
+function Button({ href, children, variant = "primary" }) {
+  const base =
+    "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:ring-offset-2 focus:ring-offset-slate-950";
+  const styles =
+    variant === "primary"
+      ? "bg-indigo-500 text-white hover:bg-indigo-400"
+      : "border border-slate-800 bg-slate-900/60 text-slate-100 hover:bg-slate-900";
+  return (
+    <a className={cn(base, styles)} href={href} target="_blank" rel="noreferrer">
+      {children}
+      <span className="ml-2 text-slate-200/80">→</span>
+    </a>
+  );
+}
+
+function SectionTitle({ eyebrow, title, subtitle }) {
+  return (
+    <div className="mx-auto max-w-2xl text-center">
+      {eyebrow ? (
+        <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-indigo-300/90">
+          {eyebrow}
+        </div>
+      ) : null}
+      <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+        {title}
+      </h2>
+      {subtitle ? (
+        <p className="mt-3 text-sm leading-6 text-slate-300">{subtitle}</p>
+      ) : null}
+    </div>
+  );
+}
+
+function Card({ children, className }) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl border border-slate-800 bg-slate-900/40 p-5 shadow-sm",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Feature({ title, desc }) {
+  return (
+    <Card>
+      <div className="text-base font-semibold text-white">{title}</div>
+      <div className="mt-2 text-sm leading-6 text-slate-300">{desc}</div>
+    </Card>
+  );
+}
+
+function Step({ num, title, desc }) {
+  return (
+    <Card className="relative overflow-hidden">
+      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-500/10 blur-2xl" />
+      <div className="flex items-start gap-4">
+        <div className="flex h-9 w-9 flex-none items-center justify-center rounded-xl border border-slate-800 bg-slate-950 text-sm font-bold text-indigo-300">
+          {num}
+        </div>
+        <div>
+          <div className="text-base font-semibold text-white">{title}</div>
+          <div className="mt-1 text-sm leading-6 text-slate-300">{desc}</div>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function PriceCard({ name, price, desc, items, highlight }) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl border p-6",
+        highlight
+          ? "border-indigo-500/60 bg-indigo-500/10"
+          : "border-slate-800 bg-slate-900/40"
+      )}
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-base font-semibold text-white">{name}</div>
+        {highlight ? (
+          <span className="rounded-full border border-indigo-400/40 bg-indigo-400/10 px-3 py-1 text-xs font-semibold text-indigo-200">
+            Recommended
+          </span>
+        ) : null}
+      </div>
+      <div className="mt-3 text-3xl font-bold tracking-tight text-white">
+        {price}
+        <span className="ml-2 text-sm font-semibold text-slate-300">/ month</span>
+      </div>
+      <p className="mt-2 text-sm leading-6 text-slate-300">{desc}</p>
+      <ul className="mt-5 space-y-2 text-sm text-slate-200">
+        {items.map((x) => (
+          <li key={x} className="flex gap-2">
+            <span className="mt-1 h-2 w-2 flex-none rounded-full bg-emerald-400" />
+            <span className="leading-6 text-slate-300">{x}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-6">
+        <Button href={CALENDLY_URL} variant={highlight ? "primary" : "secondary"}>
+          Book a demo
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function FAQItem({ q, a }) {
+  return (
+    <details className="group rounded-2xl border border-slate-800 bg-slate-900/40 p-5">
+      <summary className="cursor-pointer list-none text-sm font-semibold text-white">
+        <div className="flex items-center justify-between gap-4">
+          <span>{q}</span>
+          <span className="text-slate-400 transition group-open:rotate-45">+</span>
+        </div>
+      </summary>
+      <p className="mt-3 text-sm leading-6 text-slate-300">{a}</p>
+    </details>
+  );
+}
+
+function Nav() {
+  return (
+    <div className="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/70 backdrop-blur">
+      <Container className="flex h-16 items-center justify-between">
+        <a href="#top" className="flex items-center gap-3">
+          <div className="grid h-9 w-9 place-items-center rounded-xl border border-slate-800 bg-slate-900/40">
+            <span className="text-indigo-300 font-black">SG</span>
+          </div>
+          <div className="leading-tight">
+            <div className="text-sm font-extrabold text-white">StayGuard AI</div>
+            <div className="text-[11px] text-slate-400">
+              Guest risk protection
+            </div>
+          </div>
+        </a>
+
+        <div className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+          <a className="hover:text-white" href="#how">
+            How it works
+          </a>
+          <a className="hover:text-white" href="#features">
+            Features
+          </a>
+          <a className="hover:text-white" href="#pricing">
+            Pricing
+          </a>
+          <a className="hover:text-white" href="#faq">
+            FAQ
+          </a>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button href={CALENDLY_URL} variant="secondary">
+            Book demo
+          </Button>
+          <Button href={CALENDLY_URL} variant="primary">
+            Get access
+          </Button>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function Hero() {
+  return (
+    <div id="top" className="relative overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
+        <div className="absolute -right-24 top-16 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950/95" />
+      </div>
+
+      <Container className="relative py-14 sm:py-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="flex justify-center">
+            <Badge>Built for Airbnb hosts & short-let operators</Badge>
+          </div>
+
+          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+            Prevent bad reviews <span className="text-indigo-300">before</span>{" "}
+            they happen.
+          </h1>
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-300">
+            StayGuard AI monitors guest messages, replies instantly, and escalates
+            high-risk situations automatically — so you stay in control even when
+            you’re busy.
+          </p>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button href={CALENDLY_URL} variant="primary">
+              Book a 15-min demo
+            </Button>
+            <a
+              className="text-sm font-semibold text-slate-300 hover:text-white"
+              href="#how"
+            >
+              See how it works →
+            </a>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <Card>
+              <div className="text-sm font-semibold text-white">Instant replies</div>
+              <div className="mt-1 text-xs text-slate-300">
+                Low/Medium messages handled automatically
+              </div>
+            </Card>
+            <Card>
+              <div className="text-sm font-semibold text-white">Incident tracking</div>
+              <div className="mt-1 text-xs text-slate-300">
+                Repeated issues trigger escalation
+              </div>
+            </Card>
+            <Card>
+              <div className="text-sm font-semibold text-white">High-risk alerts</div>
+              <div className="mt-1 text-xs text-slate-300">
+                Email escalation when it matters
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-5xl">
+          <Card className="p-0 overflow-hidden">
+            <div className="flex items-center justify-between border-b border-slate-800 px-4 py-3">
+              <div className="text-sm font-semibold text-white">Demo</div>
+              <div className="text-xs text-slate-400">
+                {LOOM_URL ? "Live video" : "Add Loom link tomorrow"}
+              </div>
+            </div>
+            <div className="aspect-video bg-slate-950/60">
+              {LOOM_URL ? (
+                <iframe
+                  className="h-full w-full"
+                  src={LOOM_URL}
+                  title="StayGuard AI Demo"
+                  allow="autoplay; fullscreen; encrypted-media"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
+                  <div className="text-base font-semibold text-white">
+                    Demo video goes here
+                  </div>
+                  <div className="max-w-xl text-sm leading-6 text-slate-300">
+                    Record a 90–120 second Loom showing Low → Medium → High.
+                    Paste the Loom embed URL into <code className="text-indigo-300">LOOM_URL</code>.
+                  </div>
+                  <Button href={CALENDLY_URL} variant="secondary">
+                    Or book a demo
+                  </Button>
+                </div>
+              )}
+            </div>
+          </Card>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function HowItWorks() {
+  return (
+    <div id="how" className="py-14 sm:py-20">
+      <Container>
+        <SectionTitle
+          eyebrow="How it works"
+          title="Simple workflow. Real protection."
+          subtitle="StayGuard AI runs in the background: classify, reply, and escalate when needed."
+        />
+
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <Step
+            num="1"
+            title="Detect & classify"
+            desc="Every incoming guest message is classified into Low / Medium / High with a risk score."
+          />
+          <Step
+            num="2"
+            title="Reply instantly"
+            desc="Low and Medium messages get immediate, on-brand responses — no waiting, no missed messages."
+          />
+          <Step
+            num="3"
+            title="Escalate automatically"
+            desc="High risk (or repeated incidents) triggers escalation so you can intervene before reviews suffer."
+          />
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function Features() {
+  return (
+    <div id="features" className="py-14 sm:py-20">
+      <Container>
+        <SectionTitle
+          eyebrow="What you get"
+          title="Built for operators who care about ratings"
+          subtitle="Everything is designed around response-time, complaint control, and preventing review damage."
+        />
+
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <Feature
+            title="Risk-aware guest replies"
+            desc="Fast responses that stay calm, professional, and de-escalating — especially in High-risk scenarios."
+          />
+          <Feature
+            title="Incident tracking per booking"
+            desc="Every Medium/High issue is tracked so repeated problems escalate automatically."
+          />
+          <Feature
+            title="High-risk escalation alerts"
+            desc="Get notified immediately when a message signals refunds, threats, safety issues, or Airbnb involvement."
+          />
+          <Feature
+            title="Consistency across properties"
+            desc="Standardize your messaging and escalation logic so quality stays high even as you scale."
+          />
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <Card>
+            <div className="text-sm font-semibold text-white">Outcome</div>
+            <div className="mt-2 text-sm text-slate-300">
+              Faster response time and fewer missed messages.
+            </div>
+          </Card>
+          <Card>
+            <div className="text-sm font-semibold text-white">Outcome</div>
+            <div className="mt-2 text-sm text-slate-300">
+              Better control of complaints before they become reviews.
+            </div>
+          </Card>
+          <Card>
+            <div className="text-sm font-semibold text-white">Outcome</div>
+            <div className="mt-2 text-sm text-slate-300">
+              Less stress — escalation only when it matters.
+            </div>
+          </Card>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function Pricing() {
+  return (
+    <div id="pricing" className="py-14 sm:py-20">
+      <Container>
+        <SectionTitle
+          eyebrow="Pricing"
+          title="Start small. Prove value. Scale."
+          subtitle="Beta pricing is limited. Book a demo and we’ll fit it to your portfolio."
+        />
+
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <PriceCard
+            name="Starter"
+            price="£99"
+            desc="Perfect for a single property."
+            items={[
+              "1 property",
+              "Low/Medium/High AI replies",
+              "Incident tracking",
+              "High-risk email alerts",
+              "Setup support",
+            ]}
+          />
+          <PriceCard
+            name="Operator"
+            price="£199"
+            desc="Best for small portfolios."
+            items={[
+              "Up to 3 properties",
+              "Everything in Starter",
+              "Priority tuning (tone & rules)",
+              "Monthly optimisation check",
+            ]}
+            highlight
+          />
+          <PriceCard
+            name="Portfolio"
+            price="Custom"
+            desc="For managers and larger operators."
+            items={[
+              "Multi-property setup",
+              "Custom escalation rules",
+              "Workflow integration",
+              "SLA & monitoring options",
+            ]}
+          />
+        </div>
+
+        <div className="mt-8 text-center text-sm text-slate-400">
+          Want a cheaper beta? Book a demo and we’ll discuss your first 30 days.
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function FAQ() {
+  return (
+    <div id="faq" className="py-14 sm:py-20">
+      <Container>
+        <SectionTitle
+          eyebrow="FAQ"
+          title="Quick answers"
+          subtitle="If a host asks you these questions on a call, this is the correct position."
+        />
+
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <FAQItem
+            q="Does it reply to guests automatically?"
+            a="Yes — Low and Medium messages get instant replies. High risk also replies, but triggers escalation so you can intervene immediately."
+          />
+          <FAQItem
+            q="What triggers High risk?"
+            a="High risk triggers on severe dissatisfaction, threats, safety concerns, refund demands, Airbnb escalation language, or repeated incidents."
+          />
+          <FAQItem
+            q="Can I control the tone and rules?"
+            a="Yes. We tune templates and classification rules to match your brand and operational style."
+          />
+          <FAQItem
+            q="Is it hard to set up?"
+            a="No. We handle setup and connect it to your workflow. You’ll have a working system in place quickly."
+          />
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <Button href={CALENDLY_URL} variant="primary">
+            Book a demo
+          </Button>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="border-t border-slate-800/70 py-10">
+      <Container>
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+          <div className="flex items-center gap-3">
+            <div className="grid h-9 w-9 place-items-center rounded-xl border border-slate-800 bg-slate-900/40">
+              <span className="text-indigo-300 font-black">SG</span>
+            </div>
+            <div>
+              <div className="text-sm font-extrabold text-white">StayGuard AI</div>
+              <div className="text-xs text-slate-400">
+                Prevent bad reviews before they happen
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-6 text-sm text-slate-300">
+            <a className="hover:text-white" href="#how">
+              How it works
+            </a>
+            <a className="hover:text-white" href="#features">
+              Features
+            </a>
+            <a className="hover:text-white" href="#pricing">
+              Pricing
+            </a>
+            <a className="hover:text-white" href="#faq">
+              FAQ
+            </a>
+          </div>
+
+          <div className="text-xs text-slate-500">
+            © {new Date().getFullYear()} StayGuard AI. All rights reserved.
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="min-h-screen">
+      <Nav />
+      <Hero />
+      <HowItWorks />
+      <Features />
+      <Pricing />
+      <FAQ />
+      <Footer />
+    </div>
+  );
+}
 
 
