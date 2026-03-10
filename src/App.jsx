@@ -1,7 +1,6 @@
 import React from "react";
 
-const CALENDLY_URL = "https://calendly.com/ratkocerialnit/30min"; // replace if needed
-const LOOM_URL = ""; // paste your Loom share link tomorrow (optional)
+const CALENDLY_URL = "https://calendly.com/ratkocerialnit/demo-meeting";
 
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -26,10 +25,10 @@ function Badge({ children }) {
 
 function Button({ href, children, variant = "primary" }) {
   const base =
-    "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:ring-offset-2 focus:ring-offset-slate-950";
+    "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:ring-offset-2 focus:ring-offset-slate-950";
   const styles =
     variant === "primary"
-      ? "bg-indigo-500 text-white hover:bg-indigo-400"
+      ? "bg-indigo-500 text-white hover:bg-indigo-400 hover:shadow-lg hover:shadow-indigo-500/20"
       : "border border-slate-800 bg-slate-900/60 text-slate-100 hover:bg-slate-900";
   return (
     <a className={cn(base, styles)} href={href} target="_blank" rel="noreferrer">
@@ -61,7 +60,7 @@ function Card({ children, className }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-slate-800 bg-slate-900/40 p-5 shadow-sm",
+        "rounded-2xl border border-slate-800 bg-slate-900/40 p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-slate-700 hover:bg-slate-900/60",
         className
       )}
     >
@@ -100,9 +99,9 @@ function PriceCard({ name, price, desc, items, highlight }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border p-6",
+        "rounded-2xl border p-6 transition duration-300 hover:-translate-y-1",
         highlight
-          ? "border-indigo-500/60 bg-indigo-500/10"
+          ? "border-indigo-500/60 bg-indigo-500/10 shadow-lg shadow-indigo-500/10"
           : "border-slate-800 bg-slate-900/40"
       )}
     >
@@ -138,11 +137,13 @@ function PriceCard({ name, price, desc, items, highlight }) {
 
 function FAQItem({ q, a }) {
   return (
-    <details className="group rounded-2xl border border-slate-800 bg-slate-900/40 p-5">
+    <details className="group rounded-2xl border border-slate-800 bg-slate-900/40 p-5 transition duration-300 open:border-slate-700">
       <summary className="cursor-pointer list-none text-sm font-semibold text-white">
         <div className="flex items-center justify-between gap-4">
           <span>{q}</span>
-          <span className="text-slate-400 transition group-open:rotate-45">+</span>
+          <span className="text-slate-400 transition duration-300 group-open:rotate-45">
+            +
+          </span>
         </div>
       </summary>
       <p className="mt-3 text-sm leading-6 text-slate-300">{a}</p>
@@ -156,27 +157,25 @@ function Nav() {
       <Container className="flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-3">
           <div className="grid h-9 w-9 place-items-center rounded-xl border border-slate-800 bg-slate-900/40">
-            <span className="text-indigo-300 font-black">SG</span>
+            <span className="font-black text-indigo-300">SG</span>
           </div>
           <div className="leading-tight">
             <div className="text-sm font-extrabold text-white">StayGuard AI</div>
-            <div className="text-[11px] text-slate-400">
-              Guest risk protection
-            </div>
+            <div className="text-[11px] text-slate-400">Guest risk protection</div>
           </div>
         </a>
 
         <div className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
-          <a className="hover:text-white" href="#how">
+          <a className="transition hover:text-white" href="#how">
             How it works
           </a>
-          <a className="hover:text-white" href="#features">
+          <a className="transition hover:text-white" href="#features">
             Features
           </a>
-          <a className="hover:text-white" href="#pricing">
+          <a className="transition hover:text-white" href="#pricing">
             Pricing
           </a>
-          <a className="hover:text-white" href="#faq">
+          <a className="transition hover:text-white" href="#faq">
             FAQ
           </a>
         </div>
@@ -225,7 +224,7 @@ function Hero() {
               Book a 15-min demo
             </Button>
             <a
-              className="text-sm font-semibold text-slate-300 hover:text-white"
+              className="text-sm font-semibold text-slate-300 transition hover:text-white"
               href="#how"
             >
               See how it works →
@@ -252,41 +251,6 @@ function Hero() {
               </div>
             </Card>
           </div>
-        </div>
-
-        <div className="mx-auto mt-12 max-w-5xl">
-          <Card className="p-0 overflow-hidden">
-            <div className="flex items-center justify-between border-b border-slate-800 px-4 py-3">
-              <div className="text-sm font-semibold text-white">Demo</div>
-              <div className="text-xs text-slate-400">
-                {LOOM_URL ? "Live video" : "Add Loom link tomorrow"}
-              </div>
-            </div>
-            <div className="aspect-video bg-slate-950/60">
-              {LOOM_URL ? (
-                <iframe
-                  className="h-full w-full"
-                  src={LOOM_URL}
-                  title="StayGuard AI Demo"
-                  allow="autoplay; fullscreen; encrypted-media"
-                  allowFullScreen
-                />
-              ) : (
-                <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
-                  <div className="text-base font-semibold text-white">
-                    Demo video goes here
-                  </div>
-                  <div className="max-w-xl text-sm leading-6 text-slate-300">
-                    Record a 90–120 second Loom showing Low → Medium → High.
-                    Paste the Loom embed URL into <code className="text-indigo-300">LOOM_URL</code>.
-                  </div>
-                  <Button href={CALENDLY_URL} variant="secondary">
-                    Or book a demo
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Card>
         </div>
       </Container>
     </div>
@@ -317,7 +281,7 @@ function HowItWorks() {
           <Step
             num="3"
             title="Escalate automatically"
-            desc="High risk (or repeated incidents) triggers escalation so you can intervene before reviews suffer."
+            desc="High risk or repeated incidents trigger escalation so you can intervene before reviews suffer."
           />
         </div>
       </Container>
@@ -385,50 +349,49 @@ function Pricing() {
       <Container>
         <SectionTitle
           eyebrow="Pricing"
-          title="Start small. Prove value. Scale."
-          subtitle="Beta pricing is limited. Book a demo and we’ll fit it to your portfolio."
+          title="Simple pricing for serious hosts"
+          subtitle="Choose the plan that fits your portfolio. Book a demo and we’ll walk you through setup."
         />
 
         <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           <PriceCard
             name="Starter"
-            price="£99"
-            desc="Perfect for a single property."
+            price="£79"
+            desc="Perfect for single-property hosts."
             items={[
               "1 property",
-              "Low/Medium/High AI replies",
+              "AI replies (Low / Medium / High)",
               "Incident tracking",
-              "High-risk email alerts",
-              "Setup support",
+              "High-risk alerts",
             ]}
           />
           <PriceCard
-            name="Operator"
-            price="£199"
-            desc="Best for small portfolios."
+            name="Professional"
+            price="£149"
+            desc="Best for hosts with multiple listings."
             items={[
-              "Up to 3 properties",
+              "Up to 5 properties",
               "Everything in Starter",
-              "Priority tuning (tone & rules)",
-              "Monthly optimisation check",
+              "Priority escalation alerts",
+              "Monthly optimisation",
             ]}
             highlight
           />
           <PriceCard
             name="Portfolio"
-            price="Custom"
-            desc="For managers and larger operators."
+            price="£299"
+            desc="For professional operators and larger setups."
             items={[
-              "Multi-property setup",
-              "Custom escalation rules",
-              "Workflow integration",
-              "SLA & monitoring options",
+              "Unlimited properties",
+              "Custom escalation logic",
+              "Advanced workflow setup",
+              "Priority support",
             ]}
           />
         </div>
 
         <div className="mt-8 text-center text-sm text-slate-400">
-          Want a cheaper beta? Book a demo and we’ll discuss your first 30 days.
+          Need something custom? Book a demo and we’ll fit it to your operation.
         </div>
       </Container>
     </div>
@@ -442,13 +405,13 @@ function FAQ() {
         <SectionTitle
           eyebrow="FAQ"
           title="Quick answers"
-          subtitle="If a host asks you these questions on a call, this is the correct position."
+          subtitle="Clear answers for hosts reviewing the product for the first time."
         />
 
         <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
           <FAQItem
             q="Does it reply to guests automatically?"
-            a="Yes — Low and Medium messages get instant replies. High risk also replies, but triggers escalation so you can intervene immediately."
+            a="Yes — Low and Medium messages get instant replies. High risk also triggers escalation so you can intervene immediately."
           />
           <FAQItem
             q="What triggers High risk?"
@@ -460,7 +423,7 @@ function FAQ() {
           />
           <FAQItem
             q="Is it hard to set up?"
-            a="No. We handle setup and connect it to your workflow. You’ll have a working system in place quickly."
+            a="No. We handle setup and connect it to your workflow so you can get running quickly."
           />
         </div>
 
@@ -481,7 +444,7 @@ function Footer() {
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex items-center gap-3">
             <div className="grid h-9 w-9 place-items-center rounded-xl border border-slate-800 bg-slate-900/40">
-              <span className="text-indigo-300 font-black">SG</span>
+              <span className="font-black text-indigo-300">SG</span>
             </div>
             <div>
               <div className="text-sm font-extrabold text-white">StayGuard AI</div>
@@ -492,16 +455,16 @@ function Footer() {
           </div>
 
           <div className="flex items-center gap-6 text-sm text-slate-300">
-            <a className="hover:text-white" href="#how">
+            <a className="transition hover:text-white" href="#how">
               How it works
             </a>
-            <a className="hover:text-white" href="#features">
+            <a className="transition hover:text-white" href="#features">
               Features
             </a>
-            <a className="hover:text-white" href="#pricing">
+            <a className="transition hover:text-white" href="#pricing">
               Pricing
             </a>
-            <a className="hover:text-white" href="#faq">
+            <a className="transition hover:text-white" href="#faq">
               FAQ
             </a>
           </div>
@@ -517,7 +480,7 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-slate-950">
       <Nav />
       <Hero />
       <HowItWorks />
@@ -528,5 +491,3 @@ export default function App() {
     </div>
   );
 }
-
-
