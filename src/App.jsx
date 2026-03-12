@@ -350,10 +350,10 @@ function Pricing() {
         <SectionTitle
           eyebrow="Pricing"
           title="Simple pricing for serious hosts"
-          subtitle="Choose the plan that fits your portfolio. Book a demo and we’ll walk you through setup."
+          subtitle="Choose the plan that fits your portfolio. Early access pricing is available for a limited number of hosts."
         />
 
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-4">
           <PriceCard
             name="Starter"
             price="£79"
@@ -365,6 +365,7 @@ function Pricing() {
               "High-risk alerts",
             ]}
           />
+
           <PriceCard
             name="Professional"
             price="£149"
@@ -377,21 +378,34 @@ function Pricing() {
             ]}
             highlight
           />
+
           <PriceCard
             name="Portfolio"
             price="£299"
-            desc="For professional operators and larger setups."
+            desc="For larger operators managing multiple listings."
             items={[
-              "Unlimited properties",
-              "Custom escalation logic",
-              "Advanced workflow setup",
+              "Up to 15 properties",
+              "Everything in Professional",
+              "Advanced escalation rules",
               "Priority support",
+            ]}
+          />
+
+          <PriceCard
+            name="Enterprise"
+            price="Custom"
+            desc="For professional operators with larger portfolios."
+            items={[
+              "15+ properties",
+              "Custom workflows",
+              "Custom integrations",
+              "Dedicated support",
             ]}
           />
         </div>
 
         <div className="mt-8 text-center text-sm text-slate-400">
-          Need something custom? Book a demo and we’ll fit it to your operation.
+          Early access pricing — limited beta spots available.
         </div>
       </Container>
     </div>
