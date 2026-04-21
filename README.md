@@ -1,16 +1,25 @@
-# React + Vite
+# StayGuard AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered guest message classifier for Airbnb hosts.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+StayGuard AI automatically reads incoming guest messages, classifies them by risk level (low, medium, high), generates AI-drafted responses, and escalates high-risk messages to the property manager via Gmail alert.
 
-## React Compiler
+## Built with
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Claude's API (message classification + response generation)
+- Make (automation workflows)
+- Airtable (incident logging)
+- Gmail (escalation alerts)
 
-## Expanding the ESLint configuration
+## How it works
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Guest sends a message to the Airbnb host
+2. StayGuard AI classifies the message by risk level
+3. Low/medium risk — AI generates a draft response
+4. High risk — property manager is alerted via Gmail and incident is logged in Airtable
+
+## Live product
+
+[stayguardai.com](https://stayguardai.com)
